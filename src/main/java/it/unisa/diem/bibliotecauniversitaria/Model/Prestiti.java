@@ -1,10 +1,11 @@
 package it.unisa.diem.bibliotecauniversitaria.model;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import javafx.fxml.FXML;
+import java.io.Serializable;
 
-public class Prestiti {
+public class Prestiti implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private static int id = 0;
     private String isbn;
     private String matricola;
@@ -23,6 +24,10 @@ public class Prestiti {
     
     public boolean isInLate() {
         return this.dataRestituzioneEffettiva.isAfter(this.dataRestituzionePrevista);
+    }
+    
+    public int getID() {
+        return this.id;
     }
     
     public String getISBN() { 
@@ -73,11 +78,4 @@ public class Prestiti {
             this.sanzioneApplicata = true;
         }
     }
-    
-    /*
-    @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
-    }
-    */
 }

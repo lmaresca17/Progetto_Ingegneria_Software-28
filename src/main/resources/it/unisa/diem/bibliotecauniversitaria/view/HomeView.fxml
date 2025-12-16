@@ -11,7 +11,7 @@
 <?import javafx.geometry.Insets?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.diem.bibliotecauniversitaria.Controller.HomeController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="184.0" layoutY="44.0" prefHeight="43.0" prefWidth="233.0" text="Homepage">
          <font>
@@ -20,11 +20,11 @@
       </Label>
       <HBox alignment="CENTER" layoutX="4.0" layoutY="150.0" prefHeight="100.0" prefWidth="594.0" spacing="80.0">
          <children>
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Utente" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Libri" />
-            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Prestiti" />
+            <Button fx:id="usersButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Utenti" onAction="#openUsers"/>
+            <Button fx:id="booksButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Libri" onAction="#openBooks"/>
+            <Button fx:id="loansButton" mnemonicParsing="false" prefHeight="31.0" prefWidth="150.0" text="Prestiti" onAction="#openLoans"/>
          </children>
       </HBox>
-      <Button layoutX="521.0" layoutY="355.0" mnemonicParsing="false" text="Esci" />
+      <Button layoutX="521.0" layoutY="355.0" mnemonicParsing="false" text="Esci" onAction="#close"/>
    </children>
 </Pane>

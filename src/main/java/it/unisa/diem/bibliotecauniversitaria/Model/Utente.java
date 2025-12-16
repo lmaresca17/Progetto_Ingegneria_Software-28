@@ -1,21 +1,24 @@
 package it.unisa.diem.bibliotecauniversitaria.model;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import javafx.fxml.FXML;
+import java.io.Serializable;
 
-public class Utente {
+public class Utente implements Serializable{
+    private static final long serialVersionUID = 1L;
+    
     private String matricola;
-    private String nome;
     private String cognome;
+    private String nome;
     private String email;
     private List<String> prestitiAttivi;
     
-    public Utente(String matricola, String nome, String cognome, String email) {
+    public Utente(String matricola, String cognome, String nome, String email) {
         this.matricola = matricola;
         this.nome = nome;
         this.cognome = cognome;
         this.email = email;
+        prestitiAttivi = new ArrayList<>();
     }
     
     public int NumeroPrestiti() { 
@@ -54,18 +57,20 @@ public class Utente {
         this.email = email;
     }
     
-    /*public String[] getPrestitiAttivi(String matricola) {
-        return null;
-    }*/
-    
-    public void setPrestitiAttivi(String element) {
-        this.prestitiAttivi.add(element);
+    public List<String> getPrestitiAttivi() {
+        return this.prestitiAttivi;
     }
     
-    /*
-    @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+    public void setPrestitiAttivi(List<String> prestitiAttivi) {
+        this.prestitiAttivi = prestitiAttivi;
     }
-    */
+    
+    public void aggiungiPrestito(String prestito) {
+        this.prestitiAttivi.add(prestito);
+    }
+
+    // Metodo comodo per rimuovere un prestito
+    public void rimuoviPrestito(String prestito) {
+        this.prestitiAttivi.remove(prestito);
+    }
 }

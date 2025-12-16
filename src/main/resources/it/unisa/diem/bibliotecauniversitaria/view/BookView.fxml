@@ -13,36 +13,34 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="CENTER" layoutX="-5.0" layoutY="68.0" prefHeight="74.0" prefWidth="591.0" spacing="80.0">
-         <children>
-            <Button mnemonicParsing="false" text="Inserisci Libro" />
-            <Button mnemonicParsing="false" text="Modifica Libro" />
-            <Button mnemonicParsing="false" text="Elimina Libro" />
-         </children>
-      </HBox>
-      <Label layoutX="221.0" layoutY="8.0" text="Sezione Libri">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Button layoutX="507.0" layoutY="345.0" mnemonicParsing="false" text="Home" />
-      <TextField layoutX="399.0" layoutY="14.0" promptText="Search..." />
-      <ImageView fitHeight="24.0" fitWidth="25.0" layoutX="375.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="/resources.images/search.png" />
-         </image>
-      </ImageView>
-      <TableView layoutX="24.0" layoutY="142.0" prefHeight="200.0" prefWidth="552.0">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Titolo" />
-          <TableColumn prefWidth="75.0" text="Autori" />
-            <TableColumn prefWidth="166.0" text="Data Pubblicazione" />
-            <TableColumn minWidth="7.0" prefWidth="114.0" text="ISBN" />
-            <TableColumn minWidth="1.0" prefWidth="121.0" text="Disponibilità" />
-        </columns>
-      </TableView>
-      
-      </children>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.diem.bibliotecauniversitaria.controller.BookController">
+    <children>
+        <Label layoutX="250" layoutY="10" text="Sezione Libri" style="-fx-font-size: 24px;"/>
+
+        <!-- Area ricerca -->
+        <HBox layoutX="50" layoutY="50" spacing="10">
+            <TextField fx:id="txtRicerca" promptText="Cerca utenti..." prefWidth="250"/>
+            <Button fx:id="btnRicerca" text="🔍" onAction="#handleRicerca"
+                    style="-fx-background-color: #3498db; -fx-text-fill: white;"/>
+        </HBox>
+        
+        <!-- Bottoni azioni -->
+        <HBox layoutX="50" layoutY="100" spacing="20">
+            <Button fx:id="btnInserisciLibro" text="Inserisci Libro" onAction="#handleInserisciLibro"/>
+            <Button fx:id="btnModificaLibro" text="Modifica Libro" onAction="#handleModificaLibro" disable="true"/>
+            <Button fx:id="btnEliminaLibro" text="Elimina Libro" onAction="#handleEliminaLibro" disable="true"/>
+            <Button fx:id="homeButton" text="Home" onAction="#handleHome"/>
+        </HBox>
+        
+        <!-- Tabella utenti -->
+        <TableView fx:id="tableViewLibri" layoutX="24.0" layoutY="142.0" prefHeight="200.0" prefWidth="552.0">
+            <columns>
+                <TableColumn fx:id="colTitolo" prefWidth="75.0" text="Titolo" />
+                <TableColumn fx:id="colAutori" prefWidth="75.0" text="Autori" />
+                <TableColumn fx:id="colAnnoPub" prefWidth="166.0" text="Anno Pubblicazione" />
+                <TableColumn fx:id="colISBN" minWidth="7.0" prefWidth="114.0" text="ISBN" />
+                <TableColumn fx:id="colDisponib" minWidth="1.0" prefWidth="121.0" text="Disponibilità" />
+            </columns>
+        </TableView>
+    </children>
 </Pane>

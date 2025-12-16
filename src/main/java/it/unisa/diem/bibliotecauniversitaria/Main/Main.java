@@ -17,7 +17,7 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"), 640, 480);
+        scene = new Scene(loadFXML("/it/unisa/diem/bibliotecauniversitaria/view/HomeView"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
@@ -34,5 +34,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch();
     }
-
 }

@@ -1,43 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Button?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <HBox alignment="CENTER" layoutX="24.0" layoutY="68.0" prefHeight="74.0" prefWidth="552.0" spacing="70.0">
-         <children>
-            <Button mnemonicParsing="false" text="Inserisci Prestito" />
-            <Button mnemonicParsing="false" text="Restituzione Prestito" />
-            <Button mnemonicParsing="false" text="Prestiti Utente" />
-         </children>
-      </HBox>
-      <Label layoutX="207.0" layoutY="14.0" prefHeight="36.0" prefWidth="186.0" text="Sezione Prestiti">
-         <font>
-            <Font size="25.0" />
-         </font>
-      </Label>
-      <Button layoutX="515.0" layoutY="355.0" mnemonicParsing="false" text="Home" />
-      <TableView layoutX="24.0" layoutY="142.0" prefHeight="200.0" prefWidth="552.0">
-        <columns>
-          <TableColumn prefWidth="45.0" text="ID" />
-          <TableColumn prefWidth="69.0" text="ISBN" />
-            <TableColumn prefWidth="95.0" text="Matricola" />
-            <TableColumn minWidth="7.0" prefWidth="110.0" text="Data Prestito" />
-            <TableColumn minWidth="1.0" prefWidth="121.0" text="Data Scadenza" />
-            <TableColumn prefWidth="126.0" text="Ritardo" />
-        </columns>
-      </TableView>
-      
-      </children>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.unisa.diem.bibliotecauniversitaria.controller.LoanController">
+    <children>
+       <Label layoutX="250" layoutY="10" text="Sezione Prestiti" style="-fx-font-size: 24px;"/>
+        
+        <!-- Bottoni azioni -->
+        <HBox alignment="CENTER" layoutX="24.0" layoutY="68.0" prefHeight="74.0" prefWidth="552.0" spacing="70.0">
+            <Button fx:id="insertLoanButton" mnemonicParsing="false" text="Inserisci Prestito" onAction="#openInsertLoan" />
+            <Button fx:id="returnLoanButton" mnemonicParsing="false" text="Restituzione Prestito" onAction="#openReturnLoan" />
+            <Button fx:id="userLoansButton" mnemonicParsing="false" text="Prestiti Utente" onAction="#showUserLoans" />
+            <Button fx:id="homeButton" mnemonicParsing="false" text="Home" onAction="#handleHome" />
+        </HBox>
+        
+        <TableView fx:id="tableViewPrestiti" layoutX="24.0" layoutY="142.0" prefHeight="200.0" prefWidth="552.0">
+            <columns>
+                <TableColumn fx:id="idColumn" prefWidth="45.0" text="ID" />
+                <TableColumn fx:id="isbnColumn" prefWidth="69.0" text="ISBN" />
+                <TableColumn fx:id="matricolaColumn" prefWidth="95.0" text="Matricola" />
+                <TableColumn fx:id="dataPrestitoColumn" minWidth="7.0" prefWidth="110.0" text="Data Prestito" />
+                <TableColumn fx:id="dataScadenzaColumn" minWidth="1.0" prefWidth="121.0" text="Data Scadenza" />
+                <TableColumn fx:id="ritardoColumn" prefWidth="126.0" text="Ritardo" />
+            </columns>
+        </TableView>
+    </children>
 </Pane>

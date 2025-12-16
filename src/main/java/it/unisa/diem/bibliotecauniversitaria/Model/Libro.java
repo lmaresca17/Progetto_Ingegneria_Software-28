@@ -1,10 +1,12 @@
 package it.unisa.diem.bibliotecauniversitaria.model;
 
-import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javafx.fxml.FXML;
 
-public class Libro {
+public class Libro implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String titolo;
     private String isbn;
     private List<Author> author;
@@ -12,11 +14,13 @@ public class Libro {
     private int numeroCopieTotali;
     private int numeroCopieDisponibili;
     
-    public Libro(String titolo, String isbn, int annoPubblicazione, int numeroCopieTotali) {
+    public Libro(String titolo, String isbn, int annoPubblicazione, int numeroCopieTotali, List<Author> author) {
         this.isbn = isbn;
         this.titolo = titolo;
         this.numeroCopieTotali = numeroCopieTotali;
         this.annoPubblicazione = annoPubblicazione;
+        this.numeroCopieDisponibili = numeroCopieTotali;
+        this.author = author;
     }
     
     public boolean isAvailable() { 
@@ -64,14 +68,11 @@ public class Libro {
         this.numeroCopieDisponibili = numeroCopieDisponibili;
     }
     
-    public void setAuthor(Author element) {
-        this.author.add(element);
+    public void setAuthor(List<Author> author) {
+        this.author = author;
     }
     
-    /*
-    @FXML
-    private void switchToPrimary() throws IOException {
-        App.setRoot("primary");
+    public List<Author> getAuthor() {
+        return author;
     }
-    */
 }

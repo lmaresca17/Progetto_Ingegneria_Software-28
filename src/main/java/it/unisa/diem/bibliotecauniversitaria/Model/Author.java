@@ -1,9 +1,10 @@
 package it.unisa.diem.bibliotecauniversitaria.model;
 
-import java.io.IOException;
-import javafx.fxml.FXML;
+import java.io.Serializable;
 
-public class Author {
+public class Author implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String nome;
     private String cognome;
     
@@ -27,11 +28,4 @@ public class Author {
     public void setCognome(String cognome) {
         this.cognome = cognome;
     }
-    
-    /*
-    @FXML
-    private void switchToSecondary() throws IOException {
-        Main.setRoot("secondary");
-    }
-    */
 }
