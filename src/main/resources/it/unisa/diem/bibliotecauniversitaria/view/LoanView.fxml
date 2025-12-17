@@ -14,7 +14,7 @@
        <Label layoutX="250" layoutY="10" text="Sezione Prestiti" style="-fx-font-size: 24px;"/>
         
         <!-- Bottoni azioni -->
-        <HBox alignment="CENTER" layoutX="24.0" layoutY="68.0" prefHeight="74.0" prefWidth="552.0" spacing="70.0">
+        <HBox layoutX="50" layoutY="100" spacing="40.0">
             <Button fx:id="insertLoanButton" mnemonicParsing="false" text="Inserisci Prestito" onAction="#openInsertLoan" />
             <Button fx:id="returnLoanButton" mnemonicParsing="false" text="Restituzione Prestito" onAction="#openReturnLoan" />
             <Button fx:id="userLoansButton" mnemonicParsing="false" text="Prestiti Utente" onAction="#showUserLoans" />

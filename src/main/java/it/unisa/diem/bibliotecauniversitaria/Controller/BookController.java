@@ -59,10 +59,12 @@ public class BookController {
     private ObservableList<Libro> observableListaLibri;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         gestioneLibro = new GestioneLibri();
         
         try {
+            DataInitializer.initializeIfNeeded();
+            
             List<Libro> libri = GestioneFile.leggiLibri();
             observableListaLibri = FXCollections.observableArrayList(libri);
             tableViewLibri.setItems(observableListaLibri);
@@ -124,13 +126,14 @@ public class BookController {
             }
         });
     }
-    
+
     @FXML
     private void handleRicerca() {
         String testoRicerca = txtRicerca.getText().trim();
-        
+
         if (testoRicerca.isEmpty()) {
-            tableViewLibri.setItems(FXCollections.observableArrayList(gestioneLibro.getLibri()));
+            // Usa observableListaLibri invece di gestioneLibro.getLibri()
+            tableViewLibri.setItems(observableListaLibri);
             return;
         }
 
@@ -142,9 +145,9 @@ public class BookController {
                 risultati = gestioneLibro.cercaPerAuthor(testoRicerca);
             }
         }
-        
-        observableListaLibri.setAll(risultati);
-        
+
+        tableViewLibri.setItems(FXCollections.observableArrayList(risultati));
+
         if (risultati.isEmpty()) {
              mostraAlert(AlertType.INFORMATION, "Ricerca", "Nessun libro trovato con il criterio specificato.");
         }

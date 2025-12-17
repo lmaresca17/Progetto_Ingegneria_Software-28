@@ -1,81 +1,74 @@
 package it.unisa.diem.bibliotecauniversitaria.model;
 
-import java.time.LocalDate;
 import java.io.Serializable;
+import java.time.LocalDate;
 
-public class Prestiti implements Serializable{
+public class Prestiti implements Serializable {
     private static final long serialVersionUID = 1L;
-    
-    private static int id = 0;
+
+    private static int COUNTER = 0;
+
+    private final int id;
     private String isbn;
     private String matricola;
     private LocalDate dataPrestito;
     private LocalDate dataRestituzionePrevista;
     private LocalDate dataRestituzioneEffettiva;
     private boolean sanzioneApplicata;
-    
+
     public Prestiti(String isbn, String matricola, LocalDate dataPrestito) {
+        this.id = ++COUNTER;
         this.isbn = isbn;
-        this.id = this.id++;
         this.matricola = matricola;
         this.dataPrestito = dataPrestito;
         this.sanzioneApplicata = false;
     }
-    
-    public boolean isInLate() {
-        return this.dataRestituzioneEffettiva.isAfter(this.dataRestituzionePrevista);
-    }
-    
-    public int getID() {
-        return this.id;
-    }
-    
-    public String getISBN() { 
-        return this.isbn;
-    }
-    
-    public String getMatricola() { 
-        return this.matricola; 
-    }
-    
-    public LocalDate getDataPrestito() { 
-        return this.dataPrestito; 
-    }
-    
-    public LocalDate getDataRestituzioneEffettiva() { 
-        return this.dataRestituzioneEffettiva; 
-    }
-    
-    public LocalDate getDataRestituzionePrevista() { 
-        return this.dataRestituzionePrevista;
-    }
-    
-    public void setISBN(String isbn) {
-        this.isbn = isbn;
+
+    public int getId() {
+        return id;
     }
 
-    public void setMatricola(String matricola) {
-        this.matricola = matricola;
+    public String getISBN() {
+        return isbn;
     }
-    
-    public void setDataPrestito(LocalDate dataPrestito) {
-        this.dataPrestito = dataPrestito;
+
+    public String getMatricola() {
+        return matricola;
     }
-    
-    public void setDataRestituzionePrevista(LocalDate dataRestituzionePrevista) { 
+
+    public LocalDate getDataPrestito() {
+        return dataPrestito;
+    }
+
+    public LocalDate getDataRestituzionePrevista() {
+        return dataRestituzionePrevista;
+    }
+
+    public LocalDate getDataRestituzioneEffettiva() {
+        return dataRestituzioneEffettiva;
+    }
+
+    public boolean isSanzioneApplicata() {
+        return sanzioneApplicata;
+    }
+
+    public void setDataRestituzionePrevista(LocalDate dataRestituzionePrevista) {
         this.dataRestituzionePrevista = dataRestituzionePrevista;
     }
 
     public void setDataRestituzioneEffettiva(LocalDate dataRestituzioneEffettiva) {
         this.dataRestituzioneEffettiva = dataRestituzioneEffettiva;
     }
-    public boolean isSanzioneApplicata() {
-        return this.sanzioneApplicata;
+
+    public boolean isInLate() {
+        return dataRestituzioneEffettiva != null &&
+               dataRestituzionePrevista != null &&
+               dataRestituzioneEffettiva.isAfter(dataRestituzionePrevista);
     }
-    
-    public void setSanzioneApplicata() {
-        if (this.isInLate()){
-            this.sanzioneApplicata = true;
+
+    public void verificaSanzione() {
+        if (isInLate()) {
+            sanzioneApplicata = true;
         }
     }
 }

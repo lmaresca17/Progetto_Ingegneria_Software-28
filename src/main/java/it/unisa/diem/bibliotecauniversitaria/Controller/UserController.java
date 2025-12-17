@@ -52,10 +52,12 @@ public class UserController {
     private ObservableList<Utente> observableListaUtenti;
 
     @FXML
-    public void initialize() {
+    public void initialize() throws IOException {
         gestioneUtente = new GestioneUtente();
         
         try {
+            DataInitializer.initializeIfNeeded();
+            
             List<Utente> u = GestioneFile.leggiUtenti();
             observableListaUtenti = FXCollections.observableArrayList(u);
             tableViewUtenti.setItems(observableListaUtenti);
@@ -94,7 +96,7 @@ public class UserController {
     private void handleRicerca() {
         String testo = txtRicerca.getText().trim();
         if (testo.isEmpty()) {
-            tableViewUtenti.setItems(FXCollections.observableArrayList(gestioneUtente.getUtenti()));
+            tableViewUtenti.setItems(observableListaUtenti);
             return;
         }
 
@@ -103,8 +105,8 @@ public class UserController {
             risultati = gestioneUtente.cercaPerMatricola(testo);
         }
 
-        observableListaUtenti.setAll(risultati);
-        
+        tableViewUtenti.setItems(FXCollections.observableArrayList(risultati));
+
         if (risultati.isEmpty()) {
             mostraAlert(AlertType.INFORMATION, "Ricerca", "Nessun utente trovato.");
         }
