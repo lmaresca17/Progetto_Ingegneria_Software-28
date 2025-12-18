@@ -61,6 +61,12 @@ public class Prestiti implements Serializable {
     }
 
     public boolean isInLate() {
+        if(dataRestituzioneEffettiva == null) {
+            return dataRestituzioneEffettiva != null &&
+            dataRestituzionePrevista != null &&
+            LocalDate.now().isAfter(dataRestituzionePrevista);
+        }
+        
         return dataRestituzioneEffettiva != null &&
                dataRestituzionePrevista != null &&
                dataRestituzioneEffettiva.isAfter(dataRestituzionePrevista);

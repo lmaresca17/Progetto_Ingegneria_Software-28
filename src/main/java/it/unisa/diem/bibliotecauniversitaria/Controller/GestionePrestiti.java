@@ -3,7 +3,6 @@ package it.unisa.diem.bibliotecauniversitaria.controller;
 import it.unisa.diem.bibliotecauniversitaria.model.Libro;
 import it.unisa.diem.bibliotecauniversitaria.model.Prestiti;
 import it.unisa.diem.bibliotecauniversitaria.model.Utente;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -11,10 +10,18 @@ import java.util.List;
 
 public class GestionePrestiti {
 
-    private final List<Prestiti> prestiti;
+    private List<Prestiti> prestiti;
 
     public GestionePrestiti(List<Prestiti> prestiti) {
         this.prestiti = prestiti;
+    }
+    
+    public boolean inserisciPrestito(Prestiti prestito) {
+        if(prestito==null) return false;
+        if(prestito.getId() == 0) return false;
+        if(prestiti.contains(prestito)) return false;
+        prestiti.add(prestito);
+        return true;
     }
 
     public Prestiti registraPrestito(Utente utente, Libro libro, LocalDate dataScadenza) {
@@ -36,16 +43,17 @@ public class GestionePrestiti {
 
         return nuovo;
     }
-
-    public boolean restituisciLibro(Utente utente, Libro libro) {
-        for (Prestiti p : prestiti) {
-            if (p.getMatricola().equals(utente.getMatricola()) &&
-                p.getISBN().equals(libro.getISBN()) &&
+    
+    public boolean restituisciLibro(int id, Libro libro) {
+        for (int i = 0; i < prestiti.size(); i++) {
+            Prestiti p = prestiti.get(i);
+            if (p.getId() == id && p.getISBN().equals(libro.getISBN()) &&
                 p.getDataRestituzioneEffettiva() == null) {
 
                 p.setDataRestituzioneEffettiva(LocalDate.now());
                 p.verificaSanzione();
                 libro.setNumeroCopieDisponibili(libro.getnumeroCopieDisponibili() + 1);
+                prestiti.remove(i);  // ✅ Rimozione sicura con indice
                 return true;
             }
         }

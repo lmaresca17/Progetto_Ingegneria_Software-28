@@ -61,28 +61,20 @@ public class UserController {
             List<Utente> u = GestioneFile.leggiUtenti();
             observableListaUtenti = FXCollections.observableArrayList(u);
             tableViewUtenti.setItems(observableListaUtenti);
+            
+            // Popola gestioneUtente
+            for (Utente utente : u) {
+                gestioneUtente.inserisciUtente(utente);
+            }
         } catch (IOException e) {
             mostraAlert(Alert.AlertType.ERROR, "Errore", "Errore nel caricamento dei dati");
         }
-
-        // Dati di esempio
-        /*
-        gestioneUtente.inserisciUtente(new Utente("M001", "Rossi", "Mario", "mario.rossi@unisa.it"));
-        gestioneUtente.inserisciUtente(new Utente("M002", "Bianchi", "Anna", "anna.bianchi@unisa.it"));
-        gestioneUtente.inserisciUtente(new Utente("M003", "Verdi", "Luigi", "luigi.verdi@unisa.it"));
-        */
         
         // Imposta colonne
         colMatricola.setCellValueFactory(new PropertyValueFactory<>("Matricola"));
         colCognome.setCellValueFactory(new PropertyValueFactory<>("Cognome"));
         colNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
         colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
-
-        // Popola la TableView 
-        /*
-        observableListaUtenti.setAll(gestioneUtente.getUtenti());
-        tableViewUtenti.setItems(observableListaUtenti);
-        */
         
         // Listener selezione
         tableViewUtenti.getSelectionModel().selectedItemProperty().addListener((obs, oldSel, newSel) -> {
@@ -104,7 +96,7 @@ public class UserController {
         if (risultati.isEmpty()) {
             risultati = gestioneUtente.cercaPerMatricola(testo);
         }
-
+       
         tableViewUtenti.setItems(FXCollections.observableArrayList(risultati));
 
         if (risultati.isEmpty()) {

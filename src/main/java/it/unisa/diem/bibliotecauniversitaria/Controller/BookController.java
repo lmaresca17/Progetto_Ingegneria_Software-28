@@ -68,30 +68,17 @@ public class BookController {
             List<Libro> libri = GestioneFile.leggiLibri();
             observableListaLibri = FXCollections.observableArrayList(libri);
             tableViewLibri.setItems(observableListaLibri);
+            
+            // Popola gestioneLibri
+            for (Libro libro : libri) {
+                gestioneLibro.inserisciLibro(libro);
+            }
         } catch (IOException e) {
             mostraAlert(Alert.AlertType.ERROR, "Errore", "Errore nel caricamento dei dati");
         }
         
-        /* 
-        List<Author> autoriEs1 = new ArrayList<Author>();
-        autoriEs1.add(new Author("Erich", "Gamma"));
-        autoriEs1.add(new Author("Richard", "Helm"));
-        autoriEs1.add(new Author("Ralph", "Johnson"));
-        autoriEs1.add(new Author("John", "Vlissides"));
-        List<Author> autoriEs2 = new ArrayList<Author>();
-        autoriEs2.add(new Author("Robert", "Martin"));
-        List<Author> autoriEs3 = new ArrayList<Author>();
-        autoriEs3.add(new Author("Umberto", "Eco"));
-        
-        gestioneLibro.inserisciLibro(new Libro("Il nome della rosa","978-88-452-9002-0",1980,12,autoriEs3));
-        gestioneLibro.inserisciLibro(new Libro("Clean Code","978-0-13-235088-4",2008,5,autoriEs2));
-        gestioneLibro.inserisciLibro(new Libro("Design Patterns","978-0-201-63361-0",1994,7,autoriEs1));
-        */
-        
         colTitolo.setCellValueFactory(new PropertyValueFactory<>("titolo"));
         colISBN.setCellValueFactory(new PropertyValueFactory<>("ISBN"));
-        //colAnnoPub.setCellValueFactory(new PropertyValueFactory<>("annoPubblicazione"));
-        //colDisponib.setCellValueFactory(new PropertyValueFactory<>("numeroCopieDisponibili"));
         colAutori.setCellValueFactory(cellData ->
             new javafx.beans.property.SimpleStringProperty(
                 cellData.getValue()
@@ -112,10 +99,6 @@ public class BookController {
                 String.valueOf(cellData.getValue().getnumeroCopieDisponibili())
             )
         );
-        
-        // Popola la TableView
-        //observableListaLibri.setAll(gestioneLibro.getLibri());
-        //tableViewLibri.setItems(observableListaLibri);
 
         tableViewLibri.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Libro>() {
             @Override
@@ -152,7 +135,6 @@ public class BookController {
              mostraAlert(AlertType.INFORMATION, "Ricerca", "Nessun libro trovato con il criterio specificato.");
         }
     }
-
 
     @FXML
     private void handleInserisciLibro() {

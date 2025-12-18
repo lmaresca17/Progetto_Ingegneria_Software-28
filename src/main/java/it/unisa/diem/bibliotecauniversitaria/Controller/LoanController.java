@@ -46,6 +46,7 @@ public class LoanController {
             List<Prestiti> prestiti = GestioneFile.leggiPrestiti();
             gestionePrestiti = new GestionePrestiti(prestiti);
             observableListaPrestiti = FXCollections.observableArrayList(prestiti);
+            gestionePrestiti = new GestionePrestiti(prestiti);
         } catch (IOException e) {
             showAlert(Alert.AlertType.ERROR, "Errore", "Errore nel caricamento dei dati");
         }
@@ -104,7 +105,11 @@ public class LoanController {
             }
 
             observableListaPrestiti.setAll(gestionePrestiti.getPrestiti());
-            GestioneFile.salvaPrestiti(new ArrayList<>(observableListaPrestiti));
+            try {
+                GestioneFile.salvaPrestiti(new ArrayList<>(observableListaPrestiti));
+            } catch (IOException e) {
+                showAlert(Alert.AlertType.ERROR, "Errore", "Errore nel salvataggio dei dati");
+            }
             tableViewPrestiti.refresh();
 
             showAlert(Alert.AlertType.INFORMATION, "Successo", "Prestito registrato");
@@ -119,11 +124,11 @@ public class LoanController {
         if (p == null) return;
 
         try {
-            Utente utente = cercaUtente(p.getMatricola());
             Libro libro = cercaLibro(p.getISBN());
 
-            gestionePrestiti.restituisciLibro(utente, libro);
-            observableListaPrestiti.setAll(gestionePrestiti.getPrestiti());
+            gestionePrestiti.restituisciLibro(p.getId(), libro);
+            observableListaPrestiti.remove(p);
+            // observableListaPrestiti.setAll(gestionePrestiti.getPrestiti());
             GestioneFile.salvaPrestiti(new ArrayList<>(observableListaPrestiti));
             tableViewPrestiti.refresh();
 
